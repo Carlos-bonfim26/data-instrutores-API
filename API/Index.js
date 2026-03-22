@@ -1,2 +1,2 @@
-import app from "./App.js";
+import app from "../SRC/App.js";
 export default app;

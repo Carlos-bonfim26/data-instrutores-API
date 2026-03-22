@@ -1,9 +1,7 @@
-import { Instrutor } from "../models/Instrutor";
-import { connectDB } from "../config/db";
+import Instrutor  from "../models/Instrutor.js";
 
 export const createInstrutor = async (req, res) => {
   try {
-    await connectDB();
     const { nome, CPF, CNH, dataNascimento } = req.body;
     const newInstrutor = new Instrutor({ nome, CPF, CNH, dataNascimento });
     await newInstrutor.save();
@@ -16,7 +14,6 @@ export const createInstrutor = async (req, res) => {
 
 export const getAllInstrutores = async (req, res) => {
   try {
-    await connectDB();
     const instrutores = await Instrutor.find();
     res.status(200).json(instrutores);
   } catch (error) {
@@ -27,7 +24,6 @@ export const getAllInstrutores = async (req, res) => {
 
 export const getInstrutorById = async (req, res) => {
   try {
-    await connectDB();
     const { cpf } = req.params;
     const instrutor = await Instrutor.findOne({ CPF: cpf });
     if (!instrutor) {
@@ -42,7 +38,6 @@ export const getInstrutorById = async (req, res) => {
 
 export const updateInstrutor = async (req, res) => {
   try {
-    await connectDB();
     const { cpf } = req.params;
     const { nome, CNH, dataNascimento } = req.body;
     const updatedInstrutor = await Instrutor.findOneAndUpdate(
@@ -62,7 +57,6 @@ export const updateInstrutor = async (req, res) => {
 
 export const deleteInstrutor = async (req, res) => {
   try {
-    await connectDB();
     const { cpf } = req.params;
     const deletedInstrutor = await Instrutor.findOneAndDelete({ CPF: cpf });
     if (!deletedInstrutor) {
